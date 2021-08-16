@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
-
 struct book
 {
 	char code[20];
@@ -17,71 +16,64 @@ struct old
     int total;
     int seats;
 };
-
-
 int seat = 60 ;
-
 void insert_details();//for inserting movie details
 void viewAll(); // for view all data
 void find(); // for finding data
 void book_ticket(); //for booking tickets
 void old_record(); //for view old recorrds of users,booked tickets
-
 int main(void)
 {
+	int ch;
+ 	do
+	{
+		printf("\n====================================================================");
+		printf("\n");
+		printf("\t Movie Ticket booking ");
+		printf("\n");
+		printf("\n====================================================================");
 
-	 int ch;
- 	do{
-	printf("\n====================================================================");
-	printf("\n");
-	printf("\t Movie Ticket booking ");
-	printf("\n");
-	printf("\n====================================================================");
+		printf("\nPress <1> Insert Movie");
+		printf("\nPress <2> View All Movie");
+		printf("\nPress <3> Find Movie ");
+		printf("\nPress <4> Book Ticket");
+		printf("\nPress <5> View All Transactions");
+		printf("\nPress <0> Exit ");
 
-	printf("\nPress <1> Insert Movie");
-   	printf("\nPress <2> View All Movie");
-	printf("\nPress <3> Find Movie ");
-	printf("\nPress <4> Book Ticket");
-	printf("\nPress <5> View All Transactions");
-   	printf("\nPress <0> Exit ");
+		printf("\nEnter your Choice ::");
+		scanf("%d",&ch);
 
-   	printf("\nEnter your Choice ::");
-   	scanf("%d",&ch);
+		switch (ch)
+		{
+			case 1 :
+			insert_details();
+			break;
+			case 2:
+			viewAll();
+			break;
 
-   	switch (ch)
-   	{
-    		case 1 :
-    		insert_details();
-   		break;
-		case 2:
-    		viewAll();
-   		break;
+			case 3:
+			find();
+			break;
 
-		case 3:
-    		find();
-   		break;
+			case 4:
+			book_ticket();
+			break;
 
-		case 4:
-		book_ticket();
-		break;
+			case 5:
+			old_record();
+			break;
 
-		case 5:
-		old_record();
-		break;
+			case 0:
+			exit(0);
+			break;
 
-    		case 0:
-    		exit(0);
-    		break;
-
-    		default:
-    		printf("Wrong choice !");
-    		break;
+			default:
+			printf("Wrong choice !");
+			break;
    	}
  }while(ch!=0);
-
 }
-
-
 void insert_details()
 {
 
@@ -116,7 +108,7 @@ void find() //find details
 	struct book b;
 	FILE *fp;
 	int tempprice;
-    char ch[20];
+	char ch[20];
 	printf("Enter movie code :");
 	scanf("%s",ch);
 	//system("clear");
@@ -129,26 +121,25 @@ void find() //find details
 	}
 	else
 	{
-		    system("cls");
-		    while(fread(&b, sizeof(struct book), 1, fp))
-	    {
-		  if(strcmp(ch,b.code)==0)
-          {
+		system("cls");
+		while(fread(&b, sizeof(struct book), 1, fp))
+		{
+			if(strcmp(ch,b.code)==0)
+          		{
 				printf("%Movie Code:%s\t",b.code);
-		        printf("Movie Name: %s\t",b.name);
-		        printf("Movie Release Date: %d\t",b.date);
-                printf("Ticket Price:NRs %d\t",b.cost);
-                printf("\n");
-                printf("\n");
-          }
-            }
-}
-
+		        	printf("Movie Name: %s\t",b.name);
+		        	printf("Movie Release Date: %d\t",b.date);
+                		printf("Ticket Price:NRs %d\t",b.cost);
+                		printf("\n");
+                		printf("\n");
+          		}
+            	}
+	}
 	fclose(fp);
 }
 void viewAll()
 {
-    struct book b;
+	struct book b;
 	char ch;
 	FILE *fp;
 
@@ -157,52 +148,46 @@ void viewAll()
 	{
 		printf("file does not found !");
 		exit(1);
-
 	}
 	else
 	{
-	    system("cls");
-	    while(fread(&b, sizeof(struct book), 1, fp))
-	    {
-		        printf("%Movie Code:%s\t",b.code);
+		system("cls");
+	 	while(fread(&b, sizeof(struct book), 1, fp))
+		{
+			printf("%Movie Code:%s\t",b.code);
 		        printf("Movie Name: %s\t",b.name);
 		        printf("Movie Release Date: %d\t",b.date);
-                printf("Ticket Price:NRs %d\t",b.cost);
-                printf("\n");
-                printf("\n");
-            }
+                	printf("Ticket Price:NRs %d\t",b.cost);
+                	printf("\n");
+                	printf("\n");
+            	}
 	}
 	fclose(fp);
 }
 //for ticket booking
 void book_ticket()
 {
- struct book b;
- struct old o;
+	struct book b;
+	struct old o;
 	FILE *fp;
-
 	FILE *ufp;
-
 	int total_seat,total_amount;
 	char mobile[50];
 	int m,i,j,seat[20],tempprice;
 	char name[50],tempname[50];
 	char ch; //used in display all movies
 	char movie_code[20]; //for searching
-
 	// disply all moives by default for movie code
 	fp = fopen("data.txt","r");
- while(fread(&b, sizeof(struct book), 1, fp))
-	    {
-		        printf("%Movie Code:%s\t",b.code);
-		        printf("Movie Name: %s\t",b.name);
-		        printf("Movie Release Date: %d\t",b.date);
+	while(fread(&b, sizeof(struct book), 1, fp))
+	{
+		printf("%Movie Code:%s\t",b.code);
+		printf("Movie Name: %s\t",b.name);
+	        printf("Movie Release Date: %d\t",b.date);
                 printf("Ticket Price:NRs %d\t",b.cost);
                 printf("\n");
                 printf("\n");
-            }
-
-
+        }
 	//display ends
 	printf("\n For booking Ticket choose Movie.\n");
 	printf("\n Enter movie code :");
@@ -217,22 +202,21 @@ void book_ticket()
 	}
 	else
 	{
-	    system("cls");
-		 while(fread(&b, sizeof(struct book), 1, fp))
-	    {
-	        if(strcmp(movie_code,b.code)==0)
-            {
-		        printf("%Movie Code:%s\t",b.code);
-		        printf("Movie Name: %s\t",b.name);
-		        strcpy(tempname,b.name);
-		        printf("Movie Release Date: %d\t",b.date);
-                printf("Ticket Price:NRs %d\t",b.cost);
-                tempprice=b.cost;
-                printf("\n");
-                printf("\n");
-            }
-            }
-
+		system("cls");
+		while(fread(&b, sizeof(struct book), 1, fp))
+	    	{
+	        	if(strcmp(movie_code,b.code)==0)
+            		{
+				printf("%Movie Code:%s\t",b.code);
+				printf("Movie Name: %s\t",b.name);
+				strcpy(tempname,b.name);
+				printf("Movie Release Date: %d\t",b.date);
+				printf("Ticket Price:NRs %d\t",b.cost);
+				tempprice=b.cost;
+				printf("\n");
+				printf("\n");
+		   	}
+		}
 	}
 	printf("\n* Fill Details  *");
 	printf("\n Please Enter Your name :");
@@ -245,27 +229,22 @@ void book_ticket()
 	system("cls");
 	printf("\n");
 	printf("\t\t\t\t\tSCREEN\n\n");
+	for(i=0; i<100; i=i+10)
 	{
-for(i=0; i<100; i=i+10)
-{
-    for(j=i; j<i+10; j++)
-    {
-        printf("\t%d",j+1);
-    }
-    printf("\n");
-    printf("\n");
-}
-}
-
-    printf("\n Please Choose the Seat Number:\n");
-    for(i=0; i<total_seat; i++)
-    {
-        printf("Seat %d:",i+1);
-        scanf("%d",&seat[i]);
-    }
+    		for(j=i; j<i+10; j++)
+    		{
+        		printf("\t%d",j+1);
+    		}
+    		printf("\n");
+    		printf("\n");
+	}
+	printf("\n Please Choose the Seat Number:\n");
+    	for(i=0; i<total_seat; i++)
+    	{
+        	printf("Seat %d:",i+1);
+        	scanf("%d",&seat[i]);
+    	}
 	total_amount = tempprice * total_seat;
-
-
 	printf("\n ***** ENJOY THE MOVIE ****\n");
 	printf("\n-------Costumer Details:-------\n");
 	printf("\nName : %s\n",name);
@@ -277,16 +256,15 @@ for(i=0; i<100; i=i+10)
 	printf("\nCost per ticket : %d\n",tempprice);
 	printf("\nTotal Amount : %d\n",total_amount);
 	printf("\nSeats Chosen:\n");
-    for(i=0; i<total_seat; i++)
-    {
-        printf("\t%d",seat[i]);
-    }
-    strcpy(o.nam,name);
-    strcpy(o.mob,mobile);
-    strcpy(o.moviename,tempname);
-    o.seats=total_seat;
-    o.total=total_amount;
-
+	for(i=0; i<total_seat; i++)
+    	{
+        	printf("\t%d",seat[i]);
+    	}
+    	strcpy(o.nam,name);
+	strcpy(o.mob,mobile);
+	strcpy(o.moviename,tempname);
+	o.seats=total_seat;
+	o.total=total_amount;
 	ufp=fopen("oldTransaction.txt","a+b");
 	if(ufp == NULL)
 	{
@@ -297,7 +275,7 @@ for(i=0; i<100; i=i+10)
 		fwrite(&o,sizeof(struct old),1,ufp);
 		printf("\nRecord insert Successful");
 	}
-    printf("\n");
+    	printf("\n");
 	fclose(ufp);
 	fclose(fp);
 
